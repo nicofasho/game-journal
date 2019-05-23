@@ -8,6 +8,7 @@ var logger = require('morgan');
 var session = require('express-session');
 var passport = require('passport');
 var methodOverride = require('method-override');
+var cors = require('cors');
 
 require('dotenv').config();
 
@@ -30,8 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'node_modules/normalize.css')));
-app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+
 
 //mount the session middleware
 app.use(session({
@@ -42,6 +42,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/', usersRouter);

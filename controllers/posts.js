@@ -4,7 +4,8 @@ module.exports = {
   index,
   create,
   delete: deletePost,
-  show
+  show,
+  new: newPost
 };
 
 function index(req, res, next) {
@@ -27,4 +28,11 @@ function show(req, res, next) {
 
 function deletePost(req, res, next) {
   
+}
+
+function newPost(req, res, next) {
+  res.render('posts/new',{
+    title: 'Create a Post',
+    user: req.user
+  })
 }

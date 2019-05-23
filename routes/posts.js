@@ -5,8 +5,10 @@ var postsCtrl = require('../controllers/posts');
 // GET /posts
 router.get('/', postsCtrl.index);
 
+router.get('/new', postsCtrl.new);
 // show a post
 router.get('/:id', postsCtrl.show);
+
 
 // POST a ... post
 router.post('/', isLoggedIn, postsCtrl.create);

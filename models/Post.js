@@ -17,15 +17,18 @@ var postSchema = new Schema({
       required: true
     },
     body: {
-      type: String
+      type: String,
+      default: 'A post will go here eventually....'
     },
     authorId: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'User',
+      required: true
     },
     gameId: {
       type: Schema.Types.ObjectId,
-      ref: 'Game'
+      ref: 'Game',
+      required: true
     }
   }
 }, {
