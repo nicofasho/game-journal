@@ -1,0 +1,18 @@
+body {
+  font-size: 14px; 
+  font-family: 'Nunito', sans-serif;
+  display: grid;
+  grid-template-rows: 1fr 9fr;
+  height: 100vh;
+}
+
+a {
+  color: #00B7FF;
+}
+
+nav {
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
