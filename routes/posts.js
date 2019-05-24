@@ -6,6 +6,10 @@ var postsCtrl = require('../controllers/posts');
 router.get('/', postsCtrl.index);
 
 router.get('/new', postsCtrl.new);
+
+// gameTitle Search AJAX route
+router.get('/titleSearch' , postsCtrl.search);
+
 // show a post
 router.get('/:id', postsCtrl.show);
 
