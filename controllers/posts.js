@@ -1,5 +1,5 @@
-const Post = require('../models/Post');
-const request = require('request');
+const Post = require("../models/Post");
+const request = require("request");
 
 module.exports = {
   index,
@@ -7,37 +7,40 @@ module.exports = {
   delete: deletePost,
   show,
   new: newPost,
-  search
+  search,
+  gameInfo
 };
 
 function index(req, res, next) {
   Post.find({}).exec(function(err, posts) {
-    res.render('posts/index', {
-      title: 'Recent Posts',
+    res.render("posts/index", {
+      title: "Recent Posts",
       posts,
       user: req.user
     });
   });
 }
 
-function create(req, res, next) {
-  
-}
+function create(req, res, next) {}
 
-function show(req, res, next) {
-  
-}
+function show(req, res, next) {}
 
-function deletePost(req, res, next) {
-  
-}
+function deletePost(req, res, next) {}
 
 function newPost(req, res, next) {
-  res.render('posts/new',{
-    title: 'Create a Post',
+  res.render("posts/new", {
+    title: "Create a Post",
     user: req.user,
-    token: '1caccf71c9a065ba4b6ffc5d97d73ec83dc5dfc1'
-  })
+    token: "1caccf71c9a065ba4b6ffc5d97d73ec83dc5dfc1"
+  });
+}
+
+function gameInfo(req, res, next) {
+  var guid = req.params.id;
+  console.log("guid: ", guid);
+
+  var url = `https://www.giantbomb.com/api/game/${guid}/?api_key=1caccf71c9a065ba4b6ffc5d97d73ec83dc5dfc1`
+
 }
 
 function search(req, res, next) {
@@ -45,26 +48,27 @@ function search(req, res, next) {
 
   var url = `https://www.giantbomb.com/api/games/?api_key=1caccf71c9a065ba4b6ffc5d97d73ec83dc5dfc1&field_list=name,guid,original_release_date&format=json&limit=10&filter=name:${value}`;
 
-
   var titles = [];
-  var list = '';
+  var list = "";
 
-  request({url: url, headers: {
-    'User-Agent': "Christian's Node App"
-  }}, function(err, response, body) {
-    body = JSON.parse(body);
-    if(!body.results) {
-      titles = 'No results found.';
-    } else {
-      titles = body.results;
-      titles.forEach(function(title) {
-        console.log('adding ', title.name);
-        list += `<li>${title.name}</li>`;
-      });
+  request(
+    {
+      url: url,
+      headers: {
+        "User-Agent": "Christian's Node App"
+      }
+    },
+    function(err, response, body) {
+      body = JSON.parse(body);
+      if (!body.results) {
+        titles = "No results found.";
+      } else {
+        titles = body.results;
+        titles.forEach(function(title) {
+          list += `<li><a href="/posts/gameInfo/${title.guid}">${title.name}</a></li>`;
+        });
+      }
+      res.send(list);
     }
-    console.log(list);
-    res.send(list);
-  });
-
-
+  );
 }

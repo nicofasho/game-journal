@@ -1,10 +1,12 @@
 <%- include('../partials/header'); %>
 
-<div> 
-  <input id="gameTitle" placeholder="Game Title" name="" type="text" value=""/>
+<div>
+  <input id="gameTitle" placeholder="Game Title" name="" type="text" value="" class="form-control" />
   <ul id="results">
-    
   </ul>
+  <form action="/posts" method="POST" >
+    <button class="btn btn-primary">Submit Post</button>
+  </form>
 </div>
 
 
