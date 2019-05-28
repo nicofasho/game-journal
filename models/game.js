@@ -5,22 +5,26 @@ var gameSchema = new Schema(
   {
     title: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     description: {
       type: String
     },
-    posts: {
+    posts: [{
       type: Schema.Types.ObjectId,
       ref: "Post"
-    },
+    }],
     mainImage: String,
     images: [String],
     console: {
       type: String
     },
-    developer: {
-      type: String
+    developers: [String],
+    guid: {
+      type: String,
+      unique: true,
+      required: true
     }
   },
   { timestamps: true }

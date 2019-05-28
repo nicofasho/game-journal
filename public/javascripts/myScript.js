@@ -8,10 +8,23 @@ $(function() {
       });
     }
   });
-  $("#results>li>a").on("click", function(e) {
-    var parameters = { info: $(this).text() };
-    $.get(`/posts/gameInfo/${$(this).text()}`, parameters, function(data) {
+  $("#results").on("click", function(e) {
+    console.log("click");
+    e.preventDefault();
+    // event delegation e.target.getAttribute
+    $.get(`/posts/gameInfo/${e.target.getAttribute('data-gameId')}`, function(data) {
       //TODO: fill game input fields with fetched data
+      console.log(data);
+            
+      var devHtml = '';
+
+      data.developers.forEach(dev => devHtml += `<input class="form-control" value="${dev}" type="text" disabled>`);
+
+      $('#dev-div').html(devHtml);
+      $('#description').val(data.description).prop('disabled', true);
+      $('#gameTitle').val(data.title).prop('disabled', true);
+      $('#gameImage').html(`Main Image: <img class="img-fluid" src="${data.mainImage}">`);
+
     });
   });
 });
