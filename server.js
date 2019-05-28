@@ -37,7 +37,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'Hoobily Boobily',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 36000000,
+    httpOnly: false
+  }
 }));
 
 app.use(passport.initialize());

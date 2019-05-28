@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const User = require('../models/User');
 const Game = require("../models/game");
 const request = require("request");
 
@@ -13,6 +14,7 @@ module.exports = {
 };
 
 function index(req, res, next) {
+  console.log(req.session.passport);
   Post.find({}).exec(function (err, posts) {
     res.render("posts/index", {
       title: "Recent Posts",
@@ -22,7 +24,46 @@ function index(req, res, next) {
   });
 }
 
-function create(req, res, next) { }
+function create(req, res, next) {
+  console.log('req.body: ', req.body);
+  for(let key in req.body) {
+    if (req.body[key] === '') delete req.body[key];
+  }
+
+  req.body.authorId = req.session.passport.user;
+  Game.findOne({description: req.body.description}, function(err, game) {
+    console.log('game: ', game);
+    Post.create({
+      title: req.body.title,
+      gameTitle: game.title,
+      authorId: req.session.passport.user,
+      gameId: game._id
+    }, function(err, post) {
+      if (err) return err;
+      console.log(post);
+      User.findById(req.session.passport.user, function(err, user) {
+        if(user.gamesPlayed.includes(game._id)) {
+          user.posts.push(post._id);
+          user.save(function(err) {
+            if (err) return err;
+          });
+        } else {
+        user.gamesPlayed.push(game._id);
+        user.posts.push(post._id);
+        console.log('pushed game into user gamesPlayed array');
+        user.save(function(err) {
+          if (err) return err;
+        });
+        }
+      });
+      game.posts.push(post);
+      game.save(function(err) {
+        if (err) return err;
+      });
+      res.redirect('/posts');
+    });
+  });
+ }
 
 function show(req, res, next) { }
 
@@ -46,7 +87,6 @@ function gameInfo(req, res, next) {
   Game.findOne({ guid: guid }, function (err, doc) {
     if (!err && doc) {
       res.status(200).json(doc);
-      console.log('sending the existing doc: ', doc);
     } else {
       request(
         {
@@ -59,7 +99,6 @@ function gameInfo(req, res, next) {
 
           var devList = [];
           gameInfo.developers.forEach(dev => devList.push(dev.name));
-          console.log(gameInfo);
           Game.create({
             title: gameInfo.name,
             mainImage: gameInfo.image.original_url,
@@ -69,7 +108,6 @@ function gameInfo(req, res, next) {
           }, function (err, doc) {
             if (err) return err;
             res.status(200).json(doc);
-            console.log('sending newly created doc: ', doc);
           });
         });
     }

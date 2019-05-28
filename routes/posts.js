@@ -5,7 +5,7 @@ var postsCtrl = require("../controllers/posts");
 // GET /posts
 router.get("/", postsCtrl.index);
 
-router.get("/new", postsCtrl.new);
+router.get("/new", isLoggedIn, postsCtrl.new);
 
 // gameTitle Search AJAX route
 router.get("/titleSearch", postsCtrl.search);
@@ -15,7 +15,7 @@ router.get("/gameInfo/:id", postsCtrl.gameInfo);
 router.get("/:id", postsCtrl.show);
 
 // POST a ... post
-router.post("/", isLoggedIn, postsCtrl.create);
+router.post("/", postsCtrl.create);
 
 
 //DELETE post

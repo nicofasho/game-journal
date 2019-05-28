@@ -2,18 +2,27 @@
 
 <div>
   <h3>Game Info</h3>
-  <input id="gameTitle" placeholder="Game Title" name="" type="text" value="" class="form-control" />
-  <ul id="results">
-  </ul>
-  <form action="/posts" method="POST" >
+  <label>Game Title
+    <input id="gameTitle" placeholder="Game Title" name="gameTitle" type="text" value="" class="form-control" />
+  </label>
+  <form action="/posts" method="POST" id="postForm">
+    <ul id="results">
+    </ul>
     <div id="gameImage">Main Image</div>
     <label>Description
       <input class="form-control" id="description" name="description" type="text">
     </label>
+    <!-- hidden game._id field for selected game for create() lookup -->
     <label>Developers
       <div id="dev-div"></div>
     </label>
-
+    <h3>Post Info</h3>
+    <label>Post Title
+      <input type="text" name="title" class="form-control">
+    </label>
+    <label>Post Body
+      <textarea name="body" id="" cols="30" rows="10" class="form-control"></textarea>
+    </label>
     <button class="btn btn-primary">Submit Post</button>
   </form>
 </div>

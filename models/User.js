@@ -22,7 +22,11 @@ var userSchema = new Schema({
     ref: 'Game'
   }],
   googleId: String,
-  avatar: String
+  avatar: String,
+  posts: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Post'
+  }]
 },{
   timestamps: true
 });
