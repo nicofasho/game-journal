@@ -14,6 +14,7 @@ var gameSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Post"
     },
+    mainImage: String,
     images: [String],
     console: {
       type: String

@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const Game = require("../models/game");
 const request = require("request");
 
 module.exports = {
@@ -37,10 +38,29 @@ function newPost(req, res, next) {
 
 function gameInfo(req, res, next) {
   var guid = req.params.id;
-  console.log("guid: ", guid);
 
-  var url = `https://www.giantbomb.com/api/game/${guid}/?api_key=1caccf71c9a065ba4b6ffc5d97d73ec83dc5dfc1`
+  var gameInfo = {};
 
+  var url = `https://www.giantbomb.com/api/game/${guid}/?api_key=1caccf71c9a065ba4b6ffc5d97d73ec83dc5dfc1&format=json&field_list=name,developers,images,deck`;
+
+  request(
+    {
+      url: url,
+      headers: {
+        "User-Agent": "Christian's Node App"
+      }
+    },
+    function(err, response, body) {
+      body = JSON.parse(body);
+      gameInfo = body.results;
+      Game.create({
+        title: gameInfo.name,
+        mainImage: gameInfo.image,
+        description: gameInfo.deck,
+        developer: gameInfo.developers[0].name
+      });
+    }
+  );
 }
 
 function search(req, res, next) {
@@ -65,7 +85,9 @@ function search(req, res, next) {
       } else {
         titles = body.results;
         titles.forEach(function(title) {
-          list += `<li><a href="/posts/gameInfo/${title.guid}">${title.name}</a></li>`;
+          list += `<li><a href="/posts/gameInfo/${title.guid}">${
+            title.name
+          }</a></li>`;
         });
       }
       res.send(list);
