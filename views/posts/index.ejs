@@ -4,17 +4,17 @@
 
 <% posts.forEach(post => { %>
 <div class="post">
-    <h2><%= post.title %></h2>
-    <% if(post.body.length > 150) { %>}
-    <p><%= post.body.substring(0, 150) + '...' %></p>
-    <% } else { %> 
-    <p><%= post.body %></p>
-    <% } %>
-    <a href="/posts/<%= post._id %>">More...</a>
-    <div class="game-info">
-        <h3><%= post.gameTitle %></h3>
-        <img src="<%= post.gameId.mainImage %>" alt="<%= post.gameTitle %>">
-    </div>
+  <h2><%= post.title %></h2>
+  <% if(post.body.length > 150) { %>}
+  <p><%= post.body.substring(0, 150) + '...' %></p>
+  <% } else { %>
+  <p><%= post.body %></p>
+  <% } %>
+  <a href="/posts/<%= post._id %>">More...</a>
+  <div class="game-info">
+    <h3><%= post.gameTitle %></h3>
+    <img src="<%= post.gameId.mainImage %>" alt="<%= post.gameTitle %>">
+  </div>
 </div>
 
 <% }); %>

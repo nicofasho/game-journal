@@ -7,6 +7,7 @@ router.get('/', function(req, res) {
   res.redirect('/posts');
 });
 
+
 //Google OAuth login route
 router.get('/auth/google', passport.authenticate(
   'google',

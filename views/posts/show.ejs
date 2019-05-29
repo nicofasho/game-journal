@@ -1,6 +1,6 @@
 <%- include('../partials/header'); %>
 
-<div class="author">By: <a href="#"><%= post.authorId.userName %></a></div>
+<div class="author">By: <a href="/users/<%= post.authorId.userName %>"><%= post.authorId.userName %></a></div>
 <% if(user._id.equals(post.authorId._id)) { %>
 <div class="edit"><a class="btn btn-secondary" href="/posts/<%= post._id %>/edit">Edit Post</a></div>
 <form action="/posts/<%= post._id %>?_method=DELETE" method="POST"><button class="btn btn-danger">Delete Post</button>
@@ -21,7 +21,7 @@
 <% post.comments.forEach(comment => { %>
 <div class="comments">
 
-  <div class="author">By: <a href="#"><%= comment.authorId.userName %></a></div>
+  <div class="author">By: <a href="/users/<%= comment.authorId.userName %>"><%= comment.authorId.userName %></a></div>
   <p class="content"><%= comment.content %></p>
   <% if (user._id.equals(comment.authorId._id)) { %>
   <form action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST"><button

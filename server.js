@@ -50,7 +50,7 @@ app.use(passport.session());
 app.use(cors());
 
 app.use('/', indexRouter);
-app.use('/', usersRouter);
+app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/posts', commentsRouter);
 
