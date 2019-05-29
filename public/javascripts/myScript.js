@@ -1,9 +1,9 @@
-$(function() {
-  $("#gameTitle").on("keyup", function(e) {
+$(function () {
+  $("#gameTitle").on("keyup", function (e) {
     var keyCode = e.keyCode || e.which;
     if (keyCode === 13) {
       var parameters = { search: $(this).val() };
-      $.get("/posts/titleSearch", parameters, function(data) {
+      $.get("/posts/titleSearch", parameters, function (data) {
         console.log(data);
         $("#results").html(data);
       });
@@ -11,19 +11,21 @@ $(function() {
       return false;
     }
   });
-  $("#results").on("click", function(e) {
+  $("#results").on("click", function (e) {
     console.log("click");
     e.preventDefault();
 
     // event delegation e.target.getAttribute
-    $.get(`/posts/gameInfo/${e.target.getAttribute('data-gameId')}`, function(data) {
+    $.get(`/posts/gameInfo/${e.target.getAttribute('data-gameId')}`, function (data) {
       //TODO: fill game input fields with fetched data
       console.log(data);
-            
+
       var devHtml = '';
 
       data.developers.forEach(dev => devHtml += `<input class="form-control" value="${dev}" type="text" disabled>`);
 
+      $('#hiddenGameTitle').val(data.title);
+      $('#_id').val(data._id);
       $('#dev-div').html(devHtml);
       $('#description').val(data.description);
       $('#gameTitle').val(data.title);

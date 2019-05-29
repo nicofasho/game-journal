@@ -5,9 +5,11 @@
   <label>Game Title
     <input id="gameTitle" placeholder="Game Title" name="gameTitle" type="text" value="" class="form-control" />
   </label>
+  <ul id="results">
+  </ul>
   <form action="/posts" method="POST" id="postForm">
-    <ul id="results">
-    </ul>
+    <input type="hidden" name="_id" id="_id">
+    <input type="hidden" name="hiddenGameTitle" id="hiddenGameTitle">
     <div id="gameImage">Main Image</div>
     <label>Description
       <input class="form-control" id="description" name="description" type="text">
