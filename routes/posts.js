@@ -12,7 +12,11 @@ router.get("/titleSearch", postsCtrl.search);
 
 router.get("/gameInfo/:id", postsCtrl.gameInfo);
 // show a post
-router.get("/:id", postsCtrl.show);
+router.get("/:id", isLoggedIn, postsCtrl.show);
+
+router.get('/:id/edit', isLoggedIn, postsCtrl.edit);
+
+router.put('/:id', isLoggedIn, postsCtrl.update);
 
 // POST a ... post
 router.post("/", postsCtrl.create);

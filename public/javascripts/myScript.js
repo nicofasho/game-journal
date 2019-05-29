@@ -22,14 +22,14 @@ $(function () {
 
       var devHtml = '';
 
-      data.developers.forEach(dev => devHtml += `<input class="form-control" value="${dev}" type="text" disabled>`);
+      data.developers.forEach(dev => devHtml += `<li>${dev}</li>`);
 
       $('#hiddenGameTitle').val(data.title);
       $('#_id').val(data._id);
-      $('#dev-div').html(devHtml);
-      $('#description').val(data.description);
+      $('#devs').html(devHtml);
+      $('#description').text(data.description);
       $('#gameTitle').val(data.title);
-      $('#gameImage').html(`Main Image: <img class="img-fluid" src="${data.mainImage}">`);
+      $('#gameImage').html(`<img class="img-fluid" src="${data.mainImage}">`);
     });
   });
 });

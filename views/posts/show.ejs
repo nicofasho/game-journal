@@ -1,0 +1,27 @@
+<%- include('../partials/header'); %>
+
+<div class="author">By: <a href="#"><%= post.authorId.userName %></a></div>
+<% if(user._id.equals(post.authorId._id)) { %>
+<div class="edit"><a class="btn btn-secondary" href="/posts/<%= post._id %>/edit">Edit Post</a></div>
+<form action="/posts/<%= post._id %>?_method=DELETE" method="POST"><button class="btn btn-danger">Delete Post</button></form>
+<% } else if (user === 'undefined') { %>
+<% } %>
+<div class="game-info">
+  <h3><a href="/games/<%= post.gameId._id %>"><%= post.gameTitle %></a></h3>
+  <a href="/games/<%= post.gameId._id %>"><img src="<%= post.gameId.mainImage %>" alt="<%= post.gameTitle %>"></a>
+</div>
+
+<p class="post-body"><%= post.body %></p>
+
+<h2>Comments</h2>
+<% if(!!post.comments[0]) { %>
+<% post.comments.forEach(comment => { %>
+<div class="comments">
+  <div class="author">By: <a href="#"><%= comment.authorId.userName %></a></div>
+  <p class="content"><%= comment.content %></p>
+</div>
+<% }); %>
+<% } %>
+
+
+<%- include('../partials/footer'); %>

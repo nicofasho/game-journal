@@ -8,7 +8,10 @@ var commentSchema = new Schema(
       ref: "User",
       required: true
     },
-    content: String
+    content: {
+      type: String,
+      default: "I forgot to type a comment :/"
+    }
   },
   { timestamps: true }
 );
@@ -21,7 +24,7 @@ var postSchema = new Schema(
     },
     postTime: {
       type: Date,
-      default: function() {
+      default: function () {
         var d = new Date();
         return d;
       }

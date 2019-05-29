@@ -10,12 +10,13 @@ module.exports = {
   show,
   new: newPost,
   search,
-  gameInfo
+  gameInfo,
+  update,
+  edit
 };
 
 function index(req, res, next) {
-  console.log(req.session.passport);
-  Post.find({}).exec(function (err, posts) {
+  Post.find({}).populate('gameId').exec(function (err, posts) {
     res.render("posts/index", {
       title: "Recent Posts",
       posts,
@@ -25,22 +26,21 @@ function index(req, res, next) {
 }
 
 function create(req, res, next) {
-  console.log("req.body: ", req.body);
   for (let key in req.body) {
     if (req.body[key] === "") delete req.body[key];
   }
 
-  req.body.authorId = req.session.passport.user;
   Game.findOne({
     _id: req.body._id
   }, function (err, game) {
     console.log("game: ", game);
     Post.create({
-        title: req.body.title,
-        gameTitle: game.title,
-        authorId: req.session.passport.user,
-        gameId: game._id
-      },
+      title: req.body.title,
+      gameTitle: game.title,
+      authorId: req.session.passport.user,
+      gameId: game._id,
+      body: req.body.body
+    },
       function (err, post) {
         if (err) return err;
         console.log(post);
@@ -69,9 +69,23 @@ function create(req, res, next) {
   });
 }
 
-function show(req, res, next) {}
+function show(req, res, next) {
+  Post.findById(req.params.id).populate('gameId').populate('authorId').populate('comments.authorId').exec(function (err, post) {
+    if (err) return err;
+    res.render('posts/show', {
+      title: post.title,
+      user: req.user,
+      post
+    });
+  });
+}
 
-function deletePost(req, res, next) {}
+function deletePost(req, res, next) {
+  Post.findByIdAndDelete(req.params.id, function(err, post) {
+    if (err) console.log(err);
+    res.redirect('/posts');
+  });
+ }
 
 function newPost(req, res, next) {
   res.render("posts/new", {
@@ -95,11 +109,11 @@ function gameInfo(req, res, next) {
       res.status(200).json(doc);
     } else {
       request({
-          url: url,
-          headers: {
-            "User-Agent": "Christian's Node App"
-          }
-        },
+        url: url,
+        headers: {
+          "User-Agent": "Christian's Node App"
+        }
+      },
         function (err, response, body) {
           body = JSON.parse(body);
           gameInfo = body.results;
@@ -107,12 +121,12 @@ function gameInfo(req, res, next) {
           var devList = [];
           gameInfo.developers.forEach(dev => devList.push(dev.name));
           Game.create({
-              title: gameInfo.name,
-              mainImage: gameInfo.image.original_url,
-              description: gameInfo.deck,
-              developers: devList,
-              guid: guid
-            },
+            title: gameInfo.name,
+            mainImage: gameInfo.image.original_url,
+            description: gameInfo.deck,
+            developers: devList,
+            guid: guid
+          },
             function (err, doc) {
               if (err) return err;
               res.status(200).json(doc);
@@ -133,11 +147,11 @@ function search(req, res, next) {
   var list = "";
 
   request({
-      url: url,
-      headers: {
-        "User-Agent": "Christian's Node App"
-      }
-    },
+    url: url,
+    headers: {
+      "User-Agent": "Christian's Node App"
+    }
+  },
     function (err, response, body) {
       body = JSON.parse(body);
       if (!body.results) {
@@ -153,6 +167,23 @@ function search(req, res, next) {
       res.send(list);
     }
   );
+}
+
+function edit(req, res) {
+  Post.findById(req.params.id, function (err, post) {
+    res.render('posts/edit', {
+      title: 'Edit Your Post',
+      user: req.user,
+      post
+    });
+  });
+}
+
+function update(req, res) {
+  Post.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
+    if (err) console.log(err);
+    res.redirect(`/posts/${req.params.id}`);
+  });
 }
 
 // /posts/gameInfo/${title.guid}

@@ -1,0 +1,10 @@
+<%- include('../../partials/header'); %>
+
+
+<form action="/posts/<%= postId %>/comments" method="POST">
+    <textarea name="content" id="" cols="30" rows="10"></textarea>
+    <input type="hidden" name="authorId" value="<%= user._id %>">
+    <button>Submit Comment</button>
+</form>
+
+<%- include('../../partials/footer'); %>

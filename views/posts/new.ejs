@@ -1,7 +1,7 @@
 <%- include('../partials/header'); %>
 
 <div>
-  <h3>Game Info</h3>
+  <h2>Game Info</h2>
   <label>Game Title
     <input id="gameTitle" placeholder="Game Title" name="gameTitle" type="text" value="" class="form-control" />
   </label>
@@ -10,15 +10,14 @@
   <form action="/posts" method="POST" id="postForm">
     <input type="hidden" name="_id" id="_id">
     <input type="hidden" name="hiddenGameTitle" id="hiddenGameTitle">
-    <div id="gameImage">Main Image</div>
-    <label>Description
-      <input class="form-control" id="description" name="description" type="text">
-    </label>
+    <h3>Main Image</h3>
+    <div id="gameImage"></div>
+    <h3>Description</h3>
+    <p id="description"></p>
     <!-- hidden game._id field for selected game for create() lookup -->
-    <label>Developers
-      <div id="dev-div"></div>
-    </label>
-    <h3>Post Info</h3>
+    <h3>Developers</h3>
+    <ul id="devs"></ul>
+    <h2>Post Info</h2>
     <label>Post Title
       <input type="text" name="title" class="form-control">
     </label>
