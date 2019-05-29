@@ -1,0 +1,27 @@
+<%- include('../partials/header'); %>
+
+<div><img src="<%= game.mainImage %>" alt=""></div>
+
+<ul class="dev-list">
+  <% game.developers.forEach(d => { %>
+  <li><%= d %></li>
+  <% }); %>
+</ul>
+
+<h2>Posts About <%= game.title %></h2>
+<% game.posts.forEach(post => { %>
+<div class="post">
+  <h3><%= post.title %></h3>
+
+  <% if(post.body.length > 150) { %>}
+  <p><%= post.body.substring(0, 150) + '...' %></p>
+  <% } else { %>
+  <p><%= post.body %></p>
+  <% } %>
+  <a href="/posts/<%= post._id %>">More...</a>
+
+</div>
+
+
+
+<%- include('../partials/footer'); %>
