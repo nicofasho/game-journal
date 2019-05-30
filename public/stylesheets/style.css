@@ -4,6 +4,7 @@ body {
   display: grid;
   grid-template-rows: 2fr 8fr;
   height: 100vh;
+  /* background: repeat url('/images/gaming-pattern.png'); */
 }
 
 a {
@@ -15,6 +16,21 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 10vh;
+}
+
+.brand {
+  margin-left: 5vw;
+  font-size: 5vh;
+}
+
+.brand a{
+  color: black;
+  text-decoration: none;
+}
+
+.login {
+  margin-right: 5vw;
 }
 
 .post {
@@ -77,6 +93,48 @@ nav {
   grid-area: game-devs
 }
 
+.landing-page::before {
+  background-image: url('/images/jeshoots-com-250229-unsplash.jpg');
+  background-size: cover;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  opacity: 0.4;
+}
+
 .landing-page {
-  background: rgba(255,255,255,.1),center / cover no-repeat url('/images/jeshoots-com-250229-unsplash.jpg');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.landing-page-image {
+  width: 50vh;
+}
+
+.landing-page-text {
+  font-weight: bolder;
+  font-size: 15vh;
+}
+
+.landing-page-text a {
+  color: black;
+  text-decoration: none;
+}
+
+.post-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 20px;
 }

@@ -1,25 +1,36 @@
 <%- include('../partials/header'); %>
 
-<div><img src="<%= game.mainImage %>" alt=""></div>
+<div class="new-game-info">
+  <div class="new-game-desc">
+    <h3>Description</h3>
+    <p id="description"><%= game.description %></p>
+  </div>
+  <div class="new-game-image">
+    <h3>Main Image</h3>
+    <div id="gameImage"><img src="<%= game.mainImage %>" alt="<%= game.title %>"></div>
+  </div>
+  <div class="new-game-list">
+    <h3>Developers</h3>
+    <ul id="devs">
+      <% game.developers.forEach(dev => { %>
+      <li><%= dev %></li>
+      <% }); %>
+    </ul>
+  </div>
+</div>
 
-<ul class="dev-list">
-  <h3>Developers</h3>
-  <% game.developers.forEach(d => { %>
-  <li><%= d %></li>
-  <% }); %>
-</ul>
-
-<h2>Posts About <%= game.title %></h2>
+<h2 class="mt-5">Posts About <%= game.title %></h2>
 <% game.posts.forEach(post => { %>
-<div class="post">
+  <hr>
+<div class="post mt-5">
   <h3><%= post.title %></h3>
-
+  <div class="author">By: <a href="/users/<%= post.authorId.userName %>"><%= post.authorId.userName %></a></div>
   <% if(post.body.length > 150) { %>
   <p><%= post.body.substring(0, 150) + '...' %> <a href="/posts/<%= post._id %>">More...</a></p>
   <% } else { %>
   <p><%= post.body %> <a href="/posts/<%= post._id %>">More...</a></p>
   <% } %>
-<% }); %>
+  <% }); %>
 </div>
 
 

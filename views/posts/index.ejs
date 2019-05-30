@@ -5,9 +5,9 @@
 <% posts.forEach(post => { %>
 <hr>
 <div class="post">
-  <h2><a href="/posts/<%= post._id %>"><%= post.title %></a></h2>
+  <h3><a href="/posts/<%= post._id %>"><%= post.title %></a></h3>
   <div class="game-info">
-    <h3 class="text-center"><a href="/games/<%= post.gameId._id %>"><%= post.gameTitle %></a></h3>
+    <p class="text-center lead"><a href="/games/<%= post.gameId._id %>"><%= post.gameTitle %></a></p>
     <a href="/games/<%= post.gameId._id %>"><img class="img-fluid d-block mx-auto" src="<%= post.gameId.mainImage %>" alt="<%= post.gameTitle %>"></a>
   </div>
   <div class="author">By: <a href="/users/<%= post.authorId.userName %>"><%= post.authorId.userName %></a></div>
