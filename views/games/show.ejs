@@ -3,6 +3,7 @@
 <div><img src="<%= game.mainImage %>" alt=""></div>
 
 <ul class="dev-list">
+  <h3>Developers</h3>
   <% game.developers.forEach(d => { %>
   <li><%= d %></li>
   <% }); %>
@@ -13,13 +14,13 @@
 <div class="post">
   <h3><%= post.title %></h3>
 
-  <% if(post.body.length > 150) { %>}
+  <% if(post.body.length > 150) { %>
   <p><%= post.body.substring(0, 150) + '...' %></p>
   <% } else { %>
   <p><%= post.body %></p>
   <% } %>
   <a href="/posts/<%= post._id %>">More...</a>
-
+<% }); %>
 </div>
 
 

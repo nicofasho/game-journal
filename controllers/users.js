@@ -3,7 +3,6 @@ const User = require("../models/User");
 const Game = require("../models/game");
 
 function show(req, res) {
-  console.log('req.params.name: ', req.params.name)
   User.findOne({ userName: req.params.name }).populate('posts').populate('gamesPlayed').populate({
     path: 'posts',
     populate: {path: 'gameId'}
