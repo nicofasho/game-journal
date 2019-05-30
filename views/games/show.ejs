@@ -15,11 +15,10 @@
   <h3><%= post.title %></h3>
 
   <% if(post.body.length > 150) { %>
-  <p><%= post.body.substring(0, 150) + '...' %></p>
+  <p><%= post.body.substring(0, 150) + '...' %> <a href="/posts/<%= post._id %>">More...</a></p>
   <% } else { %>
-  <p><%= post.body %></p>
+  <p><%= post.body %> <a href="/posts/<%= post._id %>">More...</a></p>
   <% } %>
-  <a href="/posts/<%= post._id %>">More...</a>
 <% }); %>
 </div>
 

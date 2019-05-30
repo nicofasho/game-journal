@@ -16,7 +16,7 @@ module.exports = {
 };
 
 function index(req, res, next) {
-  Post.find({}).populate('gameId').exec(function (err, posts) {
+  Post.find({}).populate('gameId').populate('authorId').exec(function (err, posts) {
     res.render("posts/index", {
       title: "Recent Posts",
       posts,
@@ -168,12 +168,12 @@ function search(req, res, next) {
   },
     function (err, response, body) {
       body = JSON.parse(body);
-      if (!body.results) {
-        titles = "No results found.";
+      if (body.results.length === 0) {
+        list = "No results found.";
       } else {
         titles = body.results;
         titles.forEach(function (title) {
-          list += `<li><a href="#" data-gameId="${title.guid}">${
+          list += `<li><a class="list-group-item list-group-item-action" href="#" data-gameId="${title.guid}">${
             title.name
             }</a></li>`;
         });

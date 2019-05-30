@@ -24,6 +24,11 @@ $(function () {
 
       data.developers.forEach(dev => devHtml += `<li>${dev}</li>`);
 
+      $('#results').html('');
+      $('.new-game-info').removeClass('d-none');
+      $('.new-game-image').removeClass('d-none');
+      $('.new-game-list').removeClass('d-none');
+
       $('#hiddenGameTitle').val(data.title);
       $('#_id').val(data._id);
       $('#devs').html(devHtml);

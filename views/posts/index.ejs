@@ -1,20 +1,21 @@
 <%- include('../partials/header'); %>
 
-<a href="/posts/new">Create a new Post</a>
+<a href="/posts/new" class="btn btn-primary">Create a new Post</a>
 
 <% posts.forEach(post => { %>
+<hr>
 <div class="post">
-  <h2><%= post.title %></h2>
-  <% if(post.body.length > 150) { %>}
-  <p><%= post.body.substring(0, 150) + '...' %></p>
-  <% } else { %>
-  <p><%= post.body %></p>
-  <% } %>
-  <a href="/posts/<%= post._id %>">More...</a>
+  <h2><a href="/posts/<%= post._id %>"><%= post.title %></a></h2>
   <div class="game-info">
-    <h3><%= post.gameTitle %></h3>
-    <img src="<%= post.gameId.mainImage %>" alt="<%= post.gameTitle %>">
+    <h3 class="text-center"><a href="/games/<%= post.gameId._id %>"><%= post.gameTitle %></a></h3>
+    <a href="/games/<%= post.gameId._id %>"><img class="img-fluid d-block mx-auto" src="<%= post.gameId.mainImage %>" alt="<%= post.gameTitle %>"></a>
   </div>
+  <div class="author">By: <a href="/users/<%= post.authorId.userName %>"><%= post.authorId.userName %></a></div>
+  <% if(post.body.length > 200) { %>
+  <p><%= post.body.substring(0, 200) + '...' %> <a href="/posts/<%= post._id %>">More...</a></p>
+  <% } else { %>
+  <p><%= post.body %> <a href="/posts/<%= post._id %>">More...</a></p>
+  <% } %>
 </div>
 
 <% }); %>

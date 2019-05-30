@@ -2,7 +2,7 @@ body {
   font-size: 14px; 
   font-family: 'Nunito', sans-serif;
   display: grid;
-  grid-template-rows: 1fr 9fr;
+  grid-template-rows: 2fr 8fr;
   height: 100vh;
 }
 
@@ -15,4 +15,68 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.post {
+  display: grid;
+  grid-template-columns: 2fr 0.5fr 1fr;
+  grid-template-rows: 1fr 1fr 3fr;
+  max-height: 200px;
+  grid-template-areas: 
+  "post-header post-header game-info"
+  "author . game-info"
+  "post-body . game-info";
+}
+
+.post .author {
+  grid-area: author;
+}
+
+.post .game-info {
+  grid-area: game-info;
+  justify-self: center;
+  /* align-self: center; */
+}
+
+.game-info > a > img {
+  height: 75%;
+}
+
+.post h2 {
+  grid-area: post-header;
+}
+
+.post p {
+  grid-area: post-body;
+  align-self: center;
+}
+
+#results {
+  list-style: none;
+}
+
+.new-game-info {
+  display: grid;
+  grid-template-columns: 2fr .5fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas: 
+  "game-desc . game-image"
+  "game-devs . game-image";
+}
+
+.new-game-desc {
+  align-self: center;
+  grid-area: game-desc;
+}
+
+.new-game-image {
+  grid-area: game-image;
+}
+
+.new-game-list {
+  grid-area: game-devs
+}
+
+.landing-page {
+  background: rgba(255,255,255,.1),center / cover no-repeat url('/images/jeshoots-com-250229-unsplash.jpg');
 }
