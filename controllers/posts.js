@@ -83,16 +83,20 @@ function show(req, res, next) {
 function deletePost(req, res, next) {
   Post.findByIdAndDelete(req.params.id, function (err, post) {
     if (err) console.log(err);
-    User.update({ _id: { $in: posts } },
-      { $pull: { posts: post._id } },
-      function (err) {
-        if (err) console.log(err);
+    User.findById(post.authorId, function(error, user) {
+      if (error) console.log(error);
+      user.posts.pull(req.params.id);
+      user.save(function(err) {
+        if(err) console.log(err);
       });
-    Game.update({ _id: { $in: posts } },
-      { $pull: { posts: post._id } },
-      function (err) {
-        if (err) console.log(err);
+    });
+    Game.findById(post.gameId, function(error, game) {
+      if(error) console.log(error);
+      game.posts.pull(req.params.id);
+      game.save(function(err) {
+        if(err) console.log(err);
       });
+    });
     res.redirect('/posts');
   });
 }
