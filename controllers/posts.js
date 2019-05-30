@@ -81,11 +81,21 @@ function show(req, res, next) {
 }
 
 function deletePost(req, res, next) {
-  Post.findByIdAndDelete(req.params.id, function(err, post) {
+  Post.findByIdAndDelete(req.params.id, function (err, post) {
     if (err) console.log(err);
+    User.update({ _id: { $in: posts } },
+      { $pull: { posts: post._id } },
+      function (err) {
+        if (err) console.log(err);
+      });
+    Game.update({ _id: { $in: posts } },
+      { $pull: { posts: post._id } },
+      function (err) {
+        if (err) console.log(err);
+      });
     res.redirect('/posts');
   });
- }
+}
 
 function newPost(req, res, next) {
   res.render("posts/new", {
@@ -180,7 +190,7 @@ function edit(req, res) {
 }
 
 function update(req, res) {
-  Post.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
+  Post.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) console.log(err);
     res.redirect(`/posts/${req.params.id}`);
   });
