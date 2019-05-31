@@ -30,6 +30,7 @@ A full stack JavaScript app where gamers can share stories about their experienc
 - Node.js
 - Express
 - Bootstrap
+- MongoDB
 - Giantbomb API Integration
 
 ## Getting Started
