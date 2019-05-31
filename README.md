@@ -4,23 +4,23 @@ A full stack JavaScript app where gamers can share stories about their experienc
 
 ## Screenshots
 
-[Landing Page](./landingpage.png)
+[Landing Page](./images/landingpage.png)
 
-[Recent Posts / Post Index Page](./recentposts.png)
+[Recent Posts / Post Index Page](./images/recentposts.png)
 
-[Create a Post Page](./createapost.png)
+[Create a Post Page](./images/createapost.png)
 
-[Create a Post Populated with Game Information](./createpostpopulated.png)
+[Create a Post Populated with Game Information](./images/createpostpopulated.png)
 
-[Post Detail / Show Page](./postshowpage.png)
+[Post Detail / Show Page](./images/postshowpage.png)
 
-[Post Comment Section](./commentsection.png)
+[Post Comment Section](./images/commentsection.png)
 
-[User Detail Page](./userdetailpage.png)
+[User Detail Page](./images/userdetailpage.png)
 
-[Game Detail Page](./gamedetailpage.png)
+[Game Detail Page](./images/gamedetailpage.png)
 
-## Technologies
+## Technologies Used
 
 - HTML
 - CSS
